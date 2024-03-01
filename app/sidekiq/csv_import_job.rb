@@ -89,6 +89,7 @@ class CsvImportJob
         review.user_id = user.id
         review.stars = row[review_mapper["stars"]]
         review.content = row[review_mapper["review"]]
+        review.set_average_review(review.movie.id,review.stars)
         review.save! 
         res["msg"] = "success"
         res["valid"] = true
