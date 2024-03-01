@@ -2,10 +2,8 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
 
   def import_csv
-    # CsvImportJob.perform_async(params[:movies_file].path, params[:reviews_file].path)
-    csv_import_job = CsvImportJob.new
-    csv_import_job.perform(params[:movies_file].path, params[:reviews_file].path)
-    # redirect_to movies_path, notice: "CSV files are being imported. This may take a while."
+    CsvImportJob.perform_async(params[:movies_file].path, params[:reviews_file].path)
+    redirect_to movies_path, notice: "CSV files are being imported. This may take a while."
   end
 
   # GET /movies or /movies.json
